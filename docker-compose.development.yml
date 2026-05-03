@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nats-server:
+    image: nats:latest
+    ports:
+      - 8222:8222
+
+  api-gateway:
+    container_name: api_gateway
+    image: api-gateway:dev
+    build:
+      context: .
+      dockerfile: apps/api-gateway/dockerfile.development
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
+    volumes:
+      - ./apps/api-gateway/src:/usr/src/app/apps/api-gateway/src
+      - ./libs:/usr/src/app/libs
+    command: npm run start:dev api-gateway
+    environment:
+      - PORT=${GATEWAY_PORT}
+      - NATS_SERVERS=nats://nats-server:4222

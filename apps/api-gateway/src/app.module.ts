@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { envConfig } from './config/env.config';
 import { JoiValidationSchema } from './config/joi.validation';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { JoiValidationSchema } from './config/joi.validation';
       validationSchema: JoiValidationSchema,
       isGlobal: true,
     }),
+    ProductsModule,
   ],
   controllers: [],
   providers: [],
