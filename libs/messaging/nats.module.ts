@@ -12,7 +12,7 @@ import { NATS_SERVICE } from 'libs/common/constants/services';
         useFactory: (configService: ConfigService) => ({
           transport: Transport.NATS,
           options: {
-            servers: configService.get<string[]>('NATS_SERVERS'),
+            servers: configService.get<string[]>('natsServers') as string[],
           },
         }),
       },

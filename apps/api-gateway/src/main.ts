@@ -21,9 +21,12 @@ async function bootstrap() {
   );
 
   const configService = app.get(ConfigService);
-  const gatewayPort = configService.get<number>('GATEWAY_PORT') as number;
+  const gatewayPort = configService.get<number>('gatewayPort') as number;
+  const natsServers = configService.get<string[]>('natsServers') as string[];
 
   await app.listen(gatewayPort);
-  logger.log(`Gateway is running on port ${gatewayPort}`);
+  logger.log(
+    `Gateway is running on port ${gatewayPort} with NATS servers: ${natsServers.join(', ')}`,
+  );
 }
 bootstrap();

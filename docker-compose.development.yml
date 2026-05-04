@@ -20,4 +20,17 @@ services:
     command: npm run start:dev api-gateway
     environment:
       - PORT=${GATEWAY_PORT}
-      - NATS_SERVERS=nats://nats-server:4222
+      - NATS_SERVERS=${NATS_SERVERS}
+
+  products-service:
+    container_name: products_service
+    image: products-service:dev
+    build:
+      context: .
+      dockerfile: apps/products-service/dockerfile.development
+    volumes:
+      - ./apps/products-service/src:/usr/src/app/apps/products-service/src
+      - ./libs:/usr/src/app/libs
+    command: npm run start:dev products-service
+    environment:
+      - NATS_SERVERS=${NATS_SERVERS}
